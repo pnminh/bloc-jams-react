@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Route, Link} from "react-router-dom";
+import {Route, Link} from 'react-router-dom';
 import Landing from './components/Landing';
 import Library from './components/Library';
-
+import Album from './components/Album';
 
 class App extends Component {
   render() {
@@ -13,13 +13,16 @@ class App extends Component {
            <h1>Bloc Jams</h1>
            <nav>
              <Link to="/">Landing</Link>
-             <Link to="/library">Library</Link>
+             <Link to="/library">Library</Link> 
+           
+             
            </nav>
          </header>
 
          <main>
            <Route exact path ="/" component= {Landing} />
            <Route path = "/library" component= {Library} />
+           <Route path = "/album" component= {Album} />
          </main>
        </div>
     );
