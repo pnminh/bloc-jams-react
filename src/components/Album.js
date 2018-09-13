@@ -6,7 +6,7 @@ class Album extends Component{
             <section className="album">
                 {this.props.match.params.slug} Album will go here
             </section>
-        )
+        );
     }
 }
 
