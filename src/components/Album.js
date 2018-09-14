@@ -10,7 +10,7 @@ class Album extends Component{
     });
 
     this.state = {
-        album: album
+        album2: album
     }
 
     }
@@ -19,12 +19,12 @@ class Album extends Component{
             <section className="album">
                 <section id="album-info">
 
-                <img id="album-cover-art" src={this.state.album.albumCover} alt={this.state.album.title}/>
+                <img id="album-cover-art" src={this.state.album2.albumCover} alt={this.state.album2.title}/>
 
                 <div className="album-details">
-                    <h1 id="album-title">{this.state.album.title}</h1>
-                    <h2 className="artist">{this.state.album.artist}</h2>
-                    <div id="release-info">{this.state.album.releaseInfo}</div>
+                    <h1 id="album-title">{this.state.album2.title}</h1>
+                    <h2 className="artist">{this.state.album2.artist}</h2>
+                    <div id="release-info">{this.state.album2.releaseInfo}</div>
                 </div>
                 
                 </section>
@@ -38,12 +38,13 @@ class Album extends Component{
 
                   <tbody>
                       {
-                          this.state.album.songs.map((albu, index) =>
-                        <div key = {index}>
-                            <tr>{index}. {albu.title}: {albu.duration} seconds</tr>
-                        </div>
+                          this.state.album2.songs.map((albu, index) =>
+                        <tr key = {index}>
+                            <td>{index +1} </td> 
+                            <td>{albu.title}</td>
+                            <td>{albu.duration} </td>
+                        </tr>
                        
-
                     )
                     }
                   </tbody>
