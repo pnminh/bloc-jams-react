@@ -12,8 +12,8 @@ class Album extends Component{
     this.state = {
         album: album,
         currentSong: album.songs[0],
-        isPlaying: false
-
+        isPlaying: false,
+        isHovered: false
     };
 
     this.audioElement = document.createElement("audio");
@@ -45,29 +45,30 @@ class Album extends Component{
         }
     }
     
-    handleMouseLeave(){
-
+    handleMouseLeave(index){
+        this.setState({isHovered: false})
     }
 
     handleMouseOver(index){
-       
+      this.setState({isHovered: true});
+      if (this.state.isPlaying && this.state.isHovered){
+        return <span className="ion-pause"></span> }
+      if(this.state.isPlaying === false && this.state.isHovered ===true){
+        return <span className="ion-play"></span> 
+      }
     }
 
     render() {
         return(
             <section className="album">
                 <section id="album-info">
-
                 <img id="album-cover-art" src={this.state.album.albumCover} alt={this.state.album.title}/>
-
                 <div className="album-details">
                     <h1 id="album-title">{this.state.album.title}</h1>
                     <h2 className="artist">{this.state.album.artist}</h2>
                     <div id="release-info">{this.state.album.releaseInfo}</div>
-                </div>
-                
+                </div>           
                 </section>
-
                 <table id="song-list">
                   <colgroup>
                     <col id="song-number-column" />
@@ -83,8 +84,7 @@ class Album extends Component{
                             <td><span className="ion-play"></span> {index +1} </td> 
                             <td>{song.title}</td>
                             <td>{song.duration} </td>
-                        </tr>
-                       
+                        </tr>     
                     )
                     }
                   </tbody>
