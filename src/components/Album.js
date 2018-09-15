@@ -13,6 +13,7 @@ class Album extends Component{
         album: album,
         currentSong: album.songs[0],
         isPlaying: false
+
     };
 
     this.audioElement = document.createElement("audio");
@@ -43,6 +44,14 @@ class Album extends Component{
             this.play();
         }
     }
+    
+    handleMouseLeave(){
+
+    }
+
+    handleMouseOver(index){
+       
+    }
 
     render() {
         return(
@@ -69,8 +78,9 @@ class Album extends Component{
                   <tbody>
                       {
                           this.state.album.songs.map((song, index) =>
-                          <tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
-                            <td>{index +1} </td> 
+                          <tr className="song" key={index} onClick={() => this.handleSongClick(song)} onMouseOver={() => this.handleMouseOver(index)} onMouseLeave={() => this.handleMouseLeave()} >
+                        
+                            <td><span className="ion-play"></span> {index +1} </td> 
                             <td>{song.title}</td>
                             <td>{song.duration} </td>
                         </tr>
