@@ -13,7 +13,7 @@ class Album extends Component{
         album: album,
         currentSong: album.songs[0],
         isPlaying: false,
-        isHovered: false
+        isHovered: null
     };
 
     this.audioElement = document.createElement("audio");
@@ -46,16 +46,28 @@ class Album extends Component{
     }
     
     handleMouseLeave(index){
-        this.setState({isHovered: false})
+        this.setState({isHovered: null})
     }
 
     handleMouseOver(index){
-      this.setState({isHovered: true});
-      if (this.state.isPlaying && this.state.isHovered){
-        return <span className="ion-pause"></span> }
-      if(this.state.isPlaying === false && this.state.isHovered ===true){
-        return <span className="ion-play"></span> 
-      }
+      this.setState({isHovered: index});
+      
+    }
+    renderButton(song, index){
+        if (song === this.state.currentSong){
+            if( this.state.isPlaying === true){
+                return <span className="ion-pause"></span>
+            }
+            else{
+                return <span className="ion-play"></span> 
+            }
+        }
+        else{
+            if(this.state.isHovered !== null && this.state.isHovered === index){
+                return  <span className="ion-play"></span> 
+            }else{ return <span> {index+1}</span>}
+           
+        }  
     }
 
     render() {
@@ -81,7 +93,7 @@ class Album extends Component{
                           this.state.album.songs.map((song, index) =>
                           <tr className="song" key={index} onClick={() => this.handleSongClick(song)} onMouseOver={() => this.handleMouseOver(index)} onMouseLeave={() => this.handleMouseLeave()} >
                         
-                            <td><span className="ion-play"></span> {index +1} </td> 
+                            <td>{this.renderButton(song, index)}</td> 
                             <td>{song.title}</td>
                             <td>{song.duration} </td>
                         </tr>     
