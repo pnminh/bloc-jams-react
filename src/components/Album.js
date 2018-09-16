@@ -4,7 +4,7 @@ import albumData from "./data/albums";
 class Album extends Component{
     constructor(props){
         super(props);
-    
+        this.indexRef = [];
     const album = albumData.find( album => {
         return album.slug === this.props.match.params.slug
     });
@@ -34,7 +34,16 @@ class Album extends Component{
         this.setState({currentSong: song});
     }
 
-    handleSongClick(song){
+    handleSongClick(event,song,index){
+        this.indexRef[index].className=(this.indexRef[index].className === "ion-play")?"ion-pause":"ion-play"
+        if(this.state.currentSong !== this.state.album.songs[index]){
+            for(var i in this.state.album.songs){
+                if(this.state.album.songs[i] === this.state.currentSong){
+                    this.indexRef[i].innerHTML = parseInt(i,10)+1
+                    this.indexRef[i].className = null
+                }
+            }
+        }
         const isSameSong = this.state.currentSong === song;
         if (this.state.isPlaying && isSameSong){
             this.pause()
@@ -43,7 +52,29 @@ class Album extends Component{
             this.play();
         }
     }
-
+    onMouseOverHandler(event,index){
+        /* if(this.state.currentSong !== this.state.album.songs[index]){
+            this.indexRef[index].className=(this.indexRef[index].className === "ion-play")?"ion-pause":"ion-play"
+        }else{
+            if(this.state.isPlaying === false && this.indexRef[index].innerHTML){
+                this.indexRef[index].className = "ion-play"
+            }
+        }
+        this.indexRef[index].innerHTML = null */
+        if(this.indexRef[index].innerHTML){
+            this.indexRef[index].className="ion-play"
+            this.indexRef[index].innerHTML = null
+        }
+        
+        //event.target.className=(event.target.className === "ion-play")?"ion-pause":"ion-play"
+    }
+    onMouseLeaveHandler(event,index){
+        if(this.state.currentSong !== this.state.album.songs[index]){
+            this.indexRef[index].className=null;
+            this.indexRef[index].innerHTML = index+1
+        }
+        //event.target.className=(event.target.className === "ion-play")?"ion-pause":"ion-play"
+    }
     render() {
         return(
             <section className="album">
@@ -69,8 +100,8 @@ class Album extends Component{
                   <tbody>
                       {
                           this.state.album.songs.map((song, index) =>
-                          <tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
-                            <td>{index +1} </td> 
+                          <tr className="song" key={index} onClick={(event) => this.handleSongClick(event,song,index)} onMouseOver={(event)=>this.onMouseOverHandler(event,index)} onMouseLeave={(event)=>this.onMouseLeaveHandler(event,index)}>
+                            <td><span ref={(a) => { this.indexRef[index] = a }}>{index +1}</span></td> 
                             <td>{song.title}</td>
                             <td>{song.duration} </td>
                         </tr>
