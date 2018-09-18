@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import albumData from "./data/albums";
 import PlayerBar from "./PlayerBar";
+import "./../Album.css"
 
 class Album extends Component{
     constructor(props){
@@ -62,6 +63,14 @@ class Album extends Component{
         this.play();
     }
 
+    handleNextClick(){
+        const currentIndex = this.state.album.songs.findIndex(song => song === this.state.currentSong);
+        const newIndex = Math.min(this.state.album.songs.length,currentIndex+1,);
+        const newSong = this.state.album.songs[newIndex];
+        this.setSong(newSong);
+        this.play()
+    }
+
     renderButton(song, index){
         if (song === this.state.currentSong){
             if( this.state.isPlaying === true){
@@ -116,6 +125,7 @@ class Album extends Component{
             currentSong={this.state.currentSong} 
             handleSongClick={() => this.handleSongClick(this.state.currentSong)}
             handlePrevClick={()=> this.handlePrevClick()}
+            handleNextClick={() => this.handleNextClick()}
             />
         </section>
         );
