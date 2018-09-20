@@ -55,35 +55,6 @@ class Album extends Component{
             this.play();
         }
     }
-<<<<<<< HEAD
-    onMouseOverHandler(event,index){
-        /* if(this.state.currentSong !== this.state.album.songs[index]){
-            this.indexRef[index].className=(this.indexRef[index].className === "ion-play")?"ion-pause":"ion-play"
-        }else{
-            if(this.state.isPlaying === false && this.indexRef[index].innerHTML){
-                this.indexRef[index].className = "ion-play"
-            }
-        }
-        this.indexRef[index].innerHTML = null */
-        if(this.indexRef[index].innerHTML){
-            this.indexRef[index].className="ion-play"
-            this.indexRef[index].innerHTML = null
-        }
-        
-        //event.target.className=(event.target.className === "ion-play")?"ion-pause":"ion-play"
-    }
-    onMouseLeaveHandler(event,index){
-        if(this.state.currentSong !== this.state.album.songs[index]){
-            this.indexRef[index].className=null;
-            this.indexRef[index].innerHTML = index+1
-        }
-        //event.target.className=(event.target.className === "ion-play")?"ion-pause":"ion-play"
-    }
-    render() {
-        return(
-            <section className="album">
-                <section id="album-info">
-=======
     
     handleMouseLeave(index){
         this.setState({isHovered: null})
@@ -92,7 +63,6 @@ class Album extends Component{
     handleMouseOver(index){
       this.setState({isHovered: index});  
     }
->>>>>>> e14f4c00aa9d02162469731e8273abe15aaee352
 
     handlePrevClick(){
         const currentIndex = this.state.album.songs.findIndex(song => song === this.state.currentSong);
@@ -126,23 +96,6 @@ class Album extends Component{
         }  
     }
 
-<<<<<<< HEAD
-                  <tbody>
-                      {
-                          this.state.album.songs.map((song, index) =>
-                          <tr className="song" key={index} onClick={(event) => this.handleSongClick(event,song,index)} onMouseOver={(event)=>this.onMouseOverHandler(event,index)} onMouseLeave={(event)=>this.onMouseLeaveHandler(event,index)}>
-                            <td><span ref={(a) => { this.indexRef[index] = a }}>{index +1}</span></td> 
-                            <td>{song.title}</td>
-                            <td>{song.duration} </td>
-                        </tr>
-                       
-                    )
-                    }
-                  </tbody>
-                  
-                </table>
-            </section>
-=======
     render() {
       return(
         <section className="album">
@@ -184,7 +137,6 @@ class Album extends Component{
             handleNextClick={() => this.handleNextClick()}
             />
         </section>
->>>>>>> e14f4c00aa9d02162469731e8273abe15aaee352
         );
     }
 }
